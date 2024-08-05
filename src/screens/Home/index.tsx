@@ -1,10 +1,33 @@
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { Participant } from "../components/Participant";
 import { styles } from "./styles";
 
 export function Home() {
+  const participants = [
+    "Mauro",
+    "Coxe",
+    "José",
+    "Filipe",
+    "Mail",
+    "Joana",
+    "Jose",
+    "Julia",
+    "Frederico",
+    "Stive",
+    "Ronaldo",
+  ];
   function hendleParticipantAdd() {
     console.log("Cliclout");
+  }
+
+  function handleParticipanteRemove(name: string) {
+    console.log(`${name}`);
   }
 
   return (
@@ -23,9 +46,15 @@ export function Home() {
         </TouchableOpacity>
       </View>
 
-      <Participant name='Mário Coxe'/>
-      <Participant name="Rosário Coxe"/>
-      <Participant name="Naldo Coxe"/>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {participants.map((participants) => (
+          <Participant
+            key={participants}
+            name={participants}
+            onRemove={() => handleParticipanteRemove("Mário")}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 }
