@@ -11,7 +11,7 @@ import { Participant } from "../components/Participant";
 import { styles } from "./styles";
 
 export function Home() {
-  const [participants, setParticipants] = useState(["Filipe"]);
+  const [participants, setParticipants] = useState<String[]>([]);
   const [partipantName, setParticipantName] = useState("");
 
   function hendleParticipantAdd() {
@@ -31,7 +31,10 @@ export function Home() {
       {
         text: "Sim",
         style: "destructive",
-        onPress: () => Alert.alert("Deletado!"),
+        onPress: () =>
+          setParticipants((prevState) =>
+            prevState.filter((participant) => participant !== name)
+          ),
       },
       {
         text: "Não",
