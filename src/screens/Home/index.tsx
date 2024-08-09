@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -10,26 +11,19 @@ import { Participant } from "../components/Participant";
 import { styles } from "./styles";
 
 export function Home() {
-  const participants = [
-    "Mauro",
-    "Coxe",
-    "José",
-    "Filipe",
-    "Mail",
-    "Joana",
-    "Jose",
-    "Julia",
-    "Frederico",
-    "Stive",
-    "Ronaldo",
-  ];
+  const [participants, setParticipants] = useState(["Filipe"]);
+  const [partipantName, setParticipantName] = useState("");
+
   function hendleParticipantAdd() {
-    if (participants.includes("Mauro")) {
+    if (participants.includes(partipantName)) {
       return Alert.alert(
         "Participante existe",
         "Já existe um participante na lista com esse nome"
       );
     }
+
+    setParticipants((prevState) => [...prevState, partipantName]);
+    setParticipantName("");
   }
 
   function handleParticipanteRemove(name: string) {
@@ -37,12 +31,12 @@ export function Home() {
       {
         text: "Sim",
         style: "destructive",
-        onPress: () => Alert.alert("Deletado!")
+        onPress: () => Alert.alert("Deletado!"),
       },
       {
         text: "Não",
-        style: "cancel"
-      }
+        style: "cancel",
+      },
     ]);
   }
 
@@ -50,12 +44,13 @@ export function Home() {
     <View style={styles.container}>
       <Text style={styles.eventName}>Nome do Evento</Text>
       <Text style={styles.eventData}>Sexta, 4 de Setembro de 2022</Text>
-
       <View style={styles.form}>
         <TextInput
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor={"#6B6B6B"}
+          onChangeText={setParticipantName}
+          value={partipantName}
         />
         <TouchableOpacity style={styles.button} onPress={hendleParticipantAdd}>
           <Text style={styles.buttonText}> + </Text>
